@@ -35,9 +35,9 @@
                         {% csrf_token %}
                         <button type="submit">CERRAR SESION</button>
                     </form>
-                    <form class="logout-link" action="{% url 'AppUsers:cerrar_sesion' %}" method="post">
+                    <form class="logout-link" action="{% url 'AppUsers:mi_perfil' %}" method="post">
                         {% csrf_token %}
-                        <button type="submit">EDITAR PERFIL</button>
+                        <button type="submit">TU PERFIL</button>
                         <!-- ESTE BOTON NO FUNCIONA TODAVIA -->
                     </form>
 

@@ -2,8 +2,44 @@
 
 {% load static %}
 
-
-
 {% block centro_de_pagina %}
+
+
+<div class="col-sm-8 d-flex align-items-center"> 
+    <div class="about-me">                    
+        <div class="d-flex justify-content-start align-items-center"> 
+
+
+            <h2><strong>{{ user.username }}</strong></h2>
+          
+            
+            <p></p>
+            <div style="text-align: left;">
+                {% if request.user.username == user.username %}
+                <a class="btn btn-primary btn-sm" href="{% url 'AppUsers:iniciar_sesion' %}">Editar</a>
+                {% endif %}
+            </div>
+        </div>
+        
+    </div>
+</div>
+<div class="col-sm-8 d-flex align-items-center"> 
+    <div class="about-me">                    
+        <div class="d-flex justify-content-start align-items-center"> 
+
+
+            <h2><strong>{{ user.bio }}</strong></h2>
+
+            <p></p>
+            <div style="text-align: left;">
+                {% if request.user.bio == user.bio %}
+                <a class="btn btn-primary btn-sm" href="{% url 'AppUsers:iniciar_sesion' %}">Editar</a>
+                {% endif %}
+            </div>
+        </div>
+        
+    </div>
+</div>
+
 
 {% endblock %}
