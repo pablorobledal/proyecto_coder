@@ -23,4 +23,5 @@ urlpatterns = [
     path('saludo/', saludo),
     path("AppBlog/", include("AppBlog.urls")),
     path('', include(urlpatterns)),
+    path("AppUsers/", include("AppUsers.urls")),
 ]
