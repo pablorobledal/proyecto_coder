@@ -64,7 +64,8 @@ class borrar_usuario(SuccessMessageMixin,DeleteView):
         messages.success(self.request, (succeess_message))
         return reverse_lazy('AppBlog:index.html') 
 
-def miperfil(request):
+def miperfil(request, username):
+    perfil=Perfil.objects.get(username=username)
     return render(request, 'miperfil.html')
     
 
