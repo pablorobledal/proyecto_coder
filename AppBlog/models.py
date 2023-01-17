@@ -10,7 +10,7 @@ class Posteo(models.Model):
     fecha = models.DateField(auto_now_add=True, null=True, blank=True)
     #Informacion del posteo
     titulo = models.CharField(primary_key=True, max_length=40)
-    universo = models.CharField(max_length=40, blank=True, null=True)
+    universo = models.CharField(max_length=40, blank=True, null=True, choices=[('LotR','Lord of the Rings'),('Narnia' ,'Narnia'),('Mistborn', 'Mistborn'),('GoT', 'Game of Thrones'),('Otros','Otros')])
     cuerpo = models.TextField(max_length=10**10, null=True, blank=True)
     imagen = models.ImageField(upload_to='posts', null=False, blank=True)
     likes = models.ManyToManyField(User, blank=True, related_name='likes')

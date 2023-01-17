@@ -54,4 +54,43 @@
         </div>
 
 
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                Posts
+            </div>
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+                            <th>Autor</th>
+                            <th>Titulo</th>
+                            <th>Universo</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Autor</th>
+                            <th>Titulo</th>
+                            <th>Universo</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        {% for posteo in posteos %}
+                            <tr>
+                                <td><a href="{% url 'inicio'  %}">{{posteo.autor}} </a></td>  
+                                <th><a href="{% url 'inicio'  %}">{{posteo.titulo}} </a></th>
+                                <th><a href="{% url 'inicio'  %}">{{posteo.universo}} </a></th>
+                                <th>{{posteo.fecha}}</th>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+               
+            </div>
+        </div>
+
+
 {% endblock %}

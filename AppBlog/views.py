@@ -15,7 +15,9 @@ from django.contrib.messages.views import SuccessMessageMixin
 
 
 def inicio(request):
-    return render(request, 'AppBlog/templates/index.html')
+    posteos=Posteo.objects.all()
+
+    return render(request, 'AppBlog/templates/index.html', {'posteos':posteos})
 
 def nosotros(request):
     return render(request, 'AppBlog/templates/nosotros.html')
@@ -63,3 +65,5 @@ class BorrarPosteo(SuccessMessageMixin,DeleteView):
         succeess_message='Usuario Eliminado Correctamente'
         messages.success(self.request, (succeess_message))
         return reverse_lazy('AppBlog:inicio') 
+
+ 
