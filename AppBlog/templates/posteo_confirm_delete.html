@@ -1,0 +1,20 @@
+{% extends "AppBlog/templates/padre.html" %}
+
+{% load static %}
+
+{% block centro_de_pagina %}
+
+<form method="post">{% csrf_token %}
+     
+ 
+ 
+ 
+    <p>¿Seguro que queres borrar tu Posteo?"{{ object }}"?</p>
+     
+     
+     
+     
+        <input type="submit" value="Confirm">
+    </form>
+
+{% endblock %}

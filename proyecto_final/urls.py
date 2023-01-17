@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path, include
 from proyecto_final.views import saludo
 from AppBlog.urls import *
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,4 +26,4 @@ urlpatterns = [
     path("AppBlog/", include("AppBlog.urls")),
     path('', include(urlpatterns)),
     path("AppUsers/", include("AppUsers.urls")),
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -4,17 +4,13 @@
 
 {% block centro_de_pagina %}
 
-<form action="{% url 'AppUsers:editar_usuario' %}" method="POST"> {% csrf_token %}
+<form class="site-form" method="post" enctype="multipart/form-data">
 
-    <table>
+    {% csrf_token %}
 
-        {{ form.as_table }}
-    
-    </table>
+    {{ form }}
 
-    <input type="submit" value="INGRESAR">
-
-
+    <input type="submit" value="Editar">
 
 
 </form>

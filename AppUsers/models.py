@@ -13,7 +13,7 @@ class Perfil(models.Model):
     email=models.EmailField(max_length=100, null=False,blank=True)
     fecha_registro=models.DateTimeField(auto_now_add=True,auto_now=False, null=False,blank=True)
     bio=models.TextField(null=False,blank=True)
-    avatar=models.ImageField(upload_to='avatares/',default='avatares/default.jpg', null=False, blank=True)
+    avatar=models.ImageField(upload_to='avatares',default='avatares/default.jpg', null=False, blank=True)
     
 
     def __str__(self):

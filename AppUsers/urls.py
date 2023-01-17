@@ -9,8 +9,8 @@ urlpatterns = [
     path('registro', registro, name='registro'),
     path('login', logear, name='iniciar_sesion'),
     path('logout', cerrar_sesion, name="cerrar_sesion"),
-    path('editar_perfil', editar_usuario.as_view(), name='editar_usuario'),
-    path('borrar_usuario', borrar_usuario.as_view(), name='borrar_usuario'),
+    path('editar_perfil/<pk>', editar_perfil.as_view(), name='editar_usuario'),
+    path('borrar_usuario/<pk>', borrar_perfil.as_view(), name='borrar_usuario'),
     path('perfil/<username>', miperfil, name='mi_perfil'),
 
 

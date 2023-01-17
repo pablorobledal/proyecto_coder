@@ -13,4 +13,5 @@ urlpatterns = [
     path('got', got, name='got'),
     path('mensajes', mensajes, name='mensajes'),
     path('posts/', posts, name='posts'),
+    path('crear_posteo', crear_posteo, name='crear_posteo'),
 ]
