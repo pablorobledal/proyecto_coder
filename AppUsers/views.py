@@ -50,9 +50,9 @@ class editar_perfil (UpdateView):
     template_name='editar_perfil.html'
     fields=['username','email','bio','avatar']
     succes_message='Perfil editado correctamente'
+    success_url=reverse_lazy('inicio')
 
-    def get_success_url(self):
-        return reverse('AppUsers:mi_perfil', kwargs={'pk': self.pk})
+
 
 class borrar_perfil(SuccessMessageMixin,DeleteView):
     model = User
