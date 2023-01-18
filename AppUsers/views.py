@@ -12,6 +12,7 @@ from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from .models import *
 from .forms import *
+from AppBlog.models import *
 # Create your views here.
 
 def registro(request):
@@ -67,6 +68,7 @@ class borrar_perfil(SuccessMessageMixin,DeleteView):
 
 def miperfil (request, username):
     perfil=Perfil.objects.get(username=username)
-    return render(request, 'miperfil.html', {"perfil":perfil})
+    posteos=Posteo.objects.filter(autor=username)
+    return render(request, 'miperfil.html', {"perfil":perfil, "posteos":posteos})
     
 

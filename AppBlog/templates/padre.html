@@ -35,14 +35,15 @@
                         {% csrf_token %}
                         <button type="submit">CERRAR SESION</button>
                     </form>
-                    <form class="logout-link" action="{% url 'AppUsers:mi_perfil' user.username %}" method="post">
+                    <form class="profile-link" action="{% url 'AppUsers:mi_perfil' user.username %}" method="post">
                         {% csrf_token %}
                         <button type="submit">TU PERFIL</button>
                     </form>
-                    <form class="logout-link" action="{% url 'AppBlog:crear_posteo' %}" method="post">
+                    <form class="create-post" action="{% url 'AppBlog:crear_posteo' %}" method="post">
                         {% csrf_token %}
                         <button type="submit">CREAR POSTEO</button>
                     </form>
+
 
                     {% else %}
                     <div align="right">                   

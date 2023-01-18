@@ -78,8 +78,8 @@
                     <tbody>
                         {% for posteo in posteos %}
                             <tr>
-                                <td><a href="{% url 'inicio'  %}">{{posteo.autor}} </a></td>  
-                                <th><a href="{% url 'inicio'  %}">{{posteo.titulo}} </a></th>
+                                <td><a href="{% url 'AppBlog:visitar_perfil' posteo.autor %}">{{posteo.autor}} </a></td>  
+                                <th><a href="{% url 'AppBlog:visitar_posteo' posteo.titulo %}">{{posteo.titulo}} </a></th>
                                 <th><a href="{% url 'inicio'  %}">{{posteo.universo}} </a></th>
                                 <th>{{posteo.fecha}}</th>
                             </tr>

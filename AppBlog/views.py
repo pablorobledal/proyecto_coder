@@ -4,8 +4,10 @@ from django.template import loader
 from AppBlog.urls import *
 from .forms import *
 from .models import Posteo
+from AppUsers.models import Perfil
 from . import forms
-from django.views.generic.edit import DeleteView
+from django.views.generic.edit import DeleteView, UpdateView
+from django.contrib.auth.models import User
 
 from django.urls import reverse_lazy
 from django.contrib import messages
@@ -16,7 +18,6 @@ from django.contrib.messages.views import SuccessMessageMixin
 
 def inicio(request):
     posteos=Posteo.objects.all()
-
     return render(request, 'AppBlog/templates/index.html', {'posteos':posteos})
 
 def nosotros(request):
@@ -55,7 +56,15 @@ def crear_posteo(request):
         form = forms.CrearPosteo()
     return render(request, 'crear_posteo.html', { 'form': form })
 
-class BorrarPosteo(SuccessMessageMixin,DeleteView):
+
+class editar_posteo (UpdateView):
+    model = Posteo
+    template_name='editar_perfil.html'
+    fields=['autor','email','titulo','universo','cuerpo','imagen']
+    succes_message='Posteo editado correctamente'
+    success_url=reverse_lazy('inicio')
+
+class borrar_posteo(SuccessMessageMixin,DeleteView):
     model = Posteo
     fields="__all__"
     template_name='posteo_confirm_delete.html'
@@ -65,5 +74,15 @@ class BorrarPosteo(SuccessMessageMixin,DeleteView):
         succeess_message='Usuario Eliminado Correctamente'
         messages.success(self.request, (succeess_message))
         return reverse_lazy('AppBlog:inicio') 
+
+def visitar_perfil(request, autor):
+    posteos=Posteo.objects.filter(autor=autor)
+    perfil=Perfil.objects.get(username=autor)
+    return render(request, 'AppUsers/templates/visitar_perfil.html', {'perfil':perfil, 'posteos':posteos})
+
+
+def visitar_posteo(request, titulo):
+    posteo=Posteo.objects.get(titulo=titulo)
+    return render(request, 'visitar_posteo.html',{'posteo':posteo})
 
  

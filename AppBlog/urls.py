@@ -14,4 +14,8 @@ urlpatterns = [
     path('mensajes', mensajes, name='mensajes'),
     path('posts/', posts, name='posts'),
     path('crear_posteo', crear_posteo, name='crear_posteo'),
+    path('editar_posteo/<pk>', editar_posteo.as_view(), name='editar_posteo'),
+    path('borrar_posteo/<pk>', borrar_posteo.as_view(), name='borrar_posteo'),
+    path('visitar_perfil/<autor>',visitar_perfil, name='visitar_perfil'),
+    path('visitar_posteo/<titulo>',visitar_posteo, name='visitar_posteo'),
 ]

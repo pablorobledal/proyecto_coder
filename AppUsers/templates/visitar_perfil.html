@@ -14,12 +14,9 @@
             <img src="media/avatares/negro.jpg" alt="" class="card-img-top img-fluid">
             <div class="card-body text-center ">
                 <img alt="img" width="120px" height="120px" class="rounded-circle mt-n5" src="{{ perfil.avatar.url }}">
-                <h5 class="card-title">{{ user.username }}</h5>
+                <h5 class="card-title">{{ perfil.username }}</h5>
                 <p class="card-text text-justify mb-2">{{ perfil.bio }}</p>
-                <ul class="list-unstyled nav justify-content-center">
-                   <a href="{% url 'AppUsers:editar_usuario' perfil.pk %}" class="text-dark text-decoration-none"> <li class="nav-item">Editar perfil <br> <strong>12M</strong></li></a>
-                  <a href="{% url 'AppUsers:borrar_usuario' user.pk %}" class="text-dark text-decoration-none"> <li class="nav-item">Borrar perfil <br> <strong>1</strong></li></a> 
-                </ul>
+                
 
             </div>
 
@@ -68,8 +65,6 @@
                     <th>Titulo</th>
                     <th>Universo</th>
                     <th>Fecha</th>
-                    <th></th>
-                    <th></th>
                 </tr>
             </thead>
             <tfoot>
@@ -77,8 +72,6 @@
                     <th>Titulo</th>
                     <th>Universo</th>
                     <th>Fecha</th>
-                    <th></th>
-                    <th></th>
                 </tr>
             </tfoot>
             <tbody>
@@ -87,8 +80,6 @@
                         <th><a href="{% url 'AppBlog:visitar_posteo' posteo.titulo %}">{{posteo.titulo}} </a></th>
                         <th><a href="{% url 'inicio'  %}">{{posteo.universo}} </a></th>
                         <th>{{posteo.fecha}}</th>
-                        <th><a class="btn btn-primary" href="{% url 'AppBlog:editar_posteo' posteo.pk %}">Editar </a></th>
-                        <th><a class="btn btn-primary" href="{% url 'AppBlog:borrar_posteo' posteo.pk %}">Borrar </a></th>
                     </tr>
                 {% endfor %}
             </tbody>
