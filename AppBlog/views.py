@@ -12,6 +12,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
+from django.views.generic.detail import SingleObjectMixin
 # Create your views here.
 
 
@@ -56,24 +57,29 @@ def crear_posteo(request):
         form = forms.CrearPosteo()
     return render(request, 'crear_posteo.html', { 'form': form })
 
+def redireccionar(request):
+   user = request.user
+   perfil=Perfil.objects.get(user=user)
+   return render(request,'AppUsers/templates/miperfil.html', {'user':user, 'perfil':perfil})
+
 
 class editar_posteo (UpdateView):
     model = Posteo
     template_name='editar_perfil.html'
     fields=['autor','email','titulo','universo','cuerpo','imagen']
     succes_message='Posteo editado correctamente'
-    success_url=reverse_lazy('inicio')
+    success_url=reverse_lazy('AppBlog:redireccionar')
 
 class borrar_posteo(SuccessMessageMixin,DeleteView):
     model = Posteo
     fields="__all__"
     template_name='posteo_confirm_delete.html'
     
-
+    
     def get_success_url(self):
         succeess_message='Usuario Eliminado Correctamente'
         messages.success(self.request, (succeess_message))
-        return reverse_lazy('AppBlog:inicio') 
+        return reverse_lazy('AppBlog:redireccionar') 
 
 def visitar_perfil(request, autor):
     posteos=Posteo.objects.filter(autor=autor)
@@ -85,4 +91,3 @@ def visitar_posteo(request, titulo):
     posteo=Posteo.objects.get(titulo=titulo)
     return render(request, 'visitar_posteo.html',{'posteo':posteo})
 
- 

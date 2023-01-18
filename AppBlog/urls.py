@@ -18,4 +18,5 @@ urlpatterns = [
     path('borrar_posteo/<pk>', borrar_posteo.as_view(), name='borrar_posteo'),
     path('visitar_perfil/<autor>',visitar_perfil, name='visitar_perfil'),
     path('visitar_posteo/<titulo>',visitar_posteo, name='visitar_posteo'),
+    path('redireccionar',redireccionar, name='redireccionar'),
 ]
