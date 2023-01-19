@@ -98,23 +98,6 @@ def visitar_posteo(request, titulo):
     return render(request, 'visitar_posteo.html',{'posteo':posteo})
 
 
-"""
-def get_blog_queryset(query=None):
-	queryset = []
-	queries = query.split(" ")
-	for q in queries:
-		posts = BlogPost.objects.filter(
-			Q(title__contains=q)|
-			Q(body__icontains=q)
-			).distinct()
-		for post in posts:
-			queryset.append(post)
-
-	# create unique set and then convert to list
-	return list(set(queryset)) 
-"""
-
-
 def buscar(request):
     busqueda_completa= request.GET["n"]
     busqueda_separada=busqueda_completa.split()
