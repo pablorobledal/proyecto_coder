@@ -8,8 +8,9 @@ from PIL import Image
 
 class Perfil(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-
+    
     username=models.CharField(max_length=50, null=False,blank=True)
+    alias=models.CharField(max_length=50, null=False,blank=True)
     email=models.EmailField(max_length=100, null=False,blank=True)
     fecha_registro=models.DateTimeField(auto_now_add=True,auto_now=False, null=False,blank=True)
     bio=models.TextField(null=False,blank=True)

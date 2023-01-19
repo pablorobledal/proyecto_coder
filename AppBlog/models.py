@@ -4,9 +4,9 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Posteo(models.Model):
+    username=models.CharField(max_length=40, blank=True, null=True)
     #Datos del autor del POST
-    autor= models.CharField(max_length=40, blank=True, null=True)
-    email = models.EmailField(max_length=40, blank=True, null=True)
+    autor = models.CharField(max_length=40, blank=True, null=True)
     fecha = models.DateField(auto_now_add=True, null=True, blank=True)
     #Informacion del posteo
     titulo = models.CharField(primary_key=True, max_length=40)
@@ -17,7 +17,7 @@ class Posteo(models.Model):
     dislikes = models.ManyToManyField(User, blank=True, related_name='dislikes')
     
     def __str__(self) -> str:
-        return f'{self.titulo} | {self.autor}'
+        return f'{self.titulo} | {self.autor} | {self.username}'
 
 class Comment(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name='post_comment_author')

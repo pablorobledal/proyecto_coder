@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm
+from .forms import UserCreationForm
 from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
 from django.urls import reverse
@@ -40,7 +41,7 @@ def logear(request):
             if 'next' in request.POST:
                 return redirect(request.POST.get('next'))
             else:
-               return render(request, 'index.html')
+               return redirect('AppBlog:inicio')
     else:
         form = AuthenticationForm()
     return render(request, 'login.html', { 'form': form })
@@ -49,7 +50,7 @@ def logear(request):
 class editar_perfil (UpdateView):
     model = Perfil
     template_name='editar_perfil.html'
-    fields=['username','email','bio','avatar']
+    fields=['alias','email','bio','avatar']
     succes_message='Perfil editado correctamente'
     success_url=reverse_lazy('AppBlog:redireccionar')
 
@@ -64,11 +65,11 @@ class borrar_perfil(SuccessMessageMixin,DeleteView):
     def get_success_url(self):
         succeess_message='Usuario Eliminado Correctamente'
         messages.success(self.request, (succeess_message))
-        return reverse_lazy('AppBlog:redireccionar') 
+        return reverse_lazy('AppBlog:inicio') 
 
 def miperfil (request, username):
     perfil=Perfil.objects.get(username=username)
-    posteos=Posteo.objects.filter(autor=username)
+    posteos=Posteo.objects.filter(username=username)
     return render(request, 'miperfil.html', {"perfil":perfil, "posteos":posteos})
     
 
