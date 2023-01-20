@@ -5,7 +5,7 @@
 {% block centro_de_pagina %}
 
 <div class="crear_posteo">
-    <h2>Create an Awesome New Article</h2>
+    <h2>CREA UN NUEVO POST</h2>
     <form class="site-form" action="{% url 'AppBlog:crear_posteo' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form }}

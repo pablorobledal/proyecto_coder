@@ -76,6 +76,35 @@
   }
 }
 
+@font-face {
+  font-family: lotr;
+  src: url(media/fonts/aniron);
+}
+@font-face {
+  font-family: got;
+  src: url(fonts/got/GameofThrones.ttf);
+}
+
+.site-form{
+  margin: 30px;
+  border: 1px solid #20c997;
+  padding: 20px;
+}
+
+.helptext, .helptext ul{
+  margin: 0 auto 10px;
+  color: #bbb;
+  display: block;
+  text-align: start;
+  font-size: 0.9em;
+}
+
+.crear_posteo{
+  display: block;
+}
+.site-form input, .site-form textarea{
+  display: block;
+}
 body {
   margin: 0;
   font-family: var(--bs-body-font-family);
@@ -87,6 +116,8 @@ body {
   background-color: var(--bs-body-bg);
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  text-align: center;
+  font-family: got;
 }
 
 hr {
@@ -106,6 +137,7 @@ h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
   margin-bottom: 0.5rem;
   font-weight: 500;
   line-height: 1.2;
+  text-align: center;
 }
 
 h1, .h1 {
@@ -122,8 +154,28 @@ h2, .h2 {
 }
 @media (min-width: 1200px) {
   h2, .h2 {
-    font-size: 2rem;
+    font-size: 3rem;
   }
+}
+
+.detalle_posteos{
+  font-size: 1.2rem;
+  font-weight: 400;
+  padding: 10px;
+  position: relative;
+  border: 1px solid #084298;
+  padding-bottom: 40px;
+  margin: 20px;
+  
+}
+
+.detalle_posteos .detalle_posteo .h2{
+  font-size: 5rem;
+  font-weight: 400;
+}
+
+.detalle_posteo .img{
+  max-width: 100%;
 }
 
 h3, .h3 {
@@ -131,7 +183,7 @@ h3, .h3 {
 }
 @media (min-width: 1200px) {
   h3, .h3 {
-    font-size: 1.75rem;
+    font-size: 1.3rem;
   }
 }
 
@@ -299,6 +351,8 @@ figure {
 img,
 svg {
   vertical-align: middle;
+  max-width: 100%;
+  height: auto;
 }
 
 table {
@@ -330,7 +384,8 @@ th {
 }
 
 label {
-  display: inline-block;
+  display: block;
+  text-align: left;
 }
 
 button {
@@ -350,11 +405,14 @@ textarea {
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
+  
 }
 
 button,
 select {
   text-transform: none;
+  text-align: start;
+  display: block;
 }
 
 [role=button] {
@@ -2737,11 +2795,13 @@ textarea.form-control-lg {
 }
 
 .input-group {
-  position: relative;
+  position:relative;
   display: flex;
   flex-wrap: wrap;
   align-items: stretch;
   width: 100%;
+  margin-left: 250px;
+  margin-right: auto;
 }
 .input-group > .form-control, .input-group > .dataTable-input,
 .input-group > .form-select,
@@ -4524,15 +4584,15 @@ textarea.form-control-lg {
 }
 
 .card {
-  position: relative;
+  position: center;
   display: flex;
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-  background-color: #fff;
+  background-color: rgb(186, 255, 203);
   background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, 0.125);
-  border-radius: 0.25rem;
+  border-radius: 1rem;
 }
 .card > hr {
   margin-right: 0;
@@ -7389,6 +7449,8 @@ textarea.form-control-lg {
 
 .mb-4 {
   margin-bottom: 1.5rem !important;
+  margin: 200px;
+  margin-top: 10px;
 }
 
 .mb-5 {
