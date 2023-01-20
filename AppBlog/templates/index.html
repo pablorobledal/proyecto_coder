@@ -1,0 +1,98 @@
+{% extends "padre.html" %}
+
+{% load static %}
+
+{% block centro_de_pagina %}
+
+
+
+
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">La taberna The Prancing Pony</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item active">Bienvenidos a la taberna!</li>
+        </ol>
+        <div class="row">
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-info text-white mb-4">
+                    <div class="card-body">Lord of the Rings</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="#">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-warning text-white mb-4">
+                    <div class="card-body">Mistborn</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="#">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-success text-white mb-4">
+                    <div class="card-body">Narnia</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="#">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-danger text-white mb-4">
+                    <div class="card-body">Game of Thrones</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="#">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                Posts
+            </div>
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+                            <th>Autor</th>
+                            <th>Titulo</th>
+                            <th>Universo</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Autor</th>
+                            <th>Titulo</th>
+                            <th>Universo</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+
+                            {% for posteo in posteos %}
+                                <tr>
+                                    <td><a href="{% url 'AppBlog:visitar_perfil' posteo.username %}">{{posteo.autor}} </a></td>  
+                                    <td><a href="{% url 'AppBlog:visitar_posteo' posteo.titulo %}">{{posteo.titulo}} </a></td>
+                                    <td><a href="{% url 'inicio'  %}">{{posteo.universo}} </a></td>
+                                    <td>{{posteo.fecha}}</td>
+                                </tr>
+                            {% endfor %}
+
+
+                    </tbody>
+                </table>
+               
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}

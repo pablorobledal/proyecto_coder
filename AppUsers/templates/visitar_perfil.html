@@ -1,0 +1,89 @@
+{% extends "AppBlog/templates/padre.html" %}
+
+{% load static %}
+
+{% block centro_de_pagina %}
+
+
+<div class="col-12 col-lg-3">
+
+    <div class="middle-column">
+
+
+        <div class="card card-left1 mb-4" >
+            <img src="media/avatares/negro.jpg" alt="" class="card-img-top img-fluid">
+            <div class="card-body text-center ">
+                <img alt="img" width="120px" height="120px" class="rounded-circle mt-n5" src="{{ perfil.avatar.url }}">
+                <h5 class="card-title"> Usuario {{ user.username }} </h5>
+                <h5 class="card-title">Alias {{ perfil.alias }}</h5>
+                <h5 class="card-title"> Email {{ perfil.email }} </h5>
+                <h5 class="card-text text-justify mb-2">Redes sociales {{ perfil.bio }}</h5>
+                
+
+            </div>
+
+
+
+
+        </div>
+
+
+        <div class="card shadow-sm card-left2 mb-4">
+
+            <div class="card-body">
+
+
+                <h5 class="mb-3 card-title">Biografía </h5>
+
+                <p class="card-text text-justify mb-2">{{ perfil.bio }}</p>
+
+
+
+
+            </div>
+         
+
+
+
+
+        </div>
+    </div>
+ 
+</div>
+
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="fas fa-table me-1"></i>
+        Posts
+    </div>
+    <div class="card-body">
+        <table id="datatablesSimple">
+            <thead>
+                <tr>
+                    <th>Titulo</th>
+                    <th>Universo</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>Titulo</th>
+                    <th>Universo</th>
+                    <th>Fecha</th>
+                </tr>
+            </tfoot>
+            <tbody>
+                {% for posteo in posteos %}
+                    <tr>
+                        <th><a href="{% url 'AppBlog:visitar_posteo' posteo.titulo %}">{{posteo.titulo}} </a></th>
+                        <th><a href="{% url 'inicio'  %}">{{posteo.universo}} </a></th>
+                        <th>{{posteo.fecha}}</th>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+       
+    </div>
+</div>
+{% endblock %}
+

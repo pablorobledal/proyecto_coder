@@ -1,0 +1,25 @@
+{% extends "padre.html" %}
+
+{% load static %}
+
+{% block centro_de_pagina %}
+
+
+<div class="detalle_posteo UwU">
+    <div class="posteo">
+        <h2>{{ posteo.titulo }}</h2>
+        <h3>Escrito por {{ posteo.autor }}</h3>
+        <h3>Universo {{ posteo.universo }}</h3>
+        {% if posteo.imagen %}
+            <img src="{{ posteo.imagen.url }}" />
+        {% else %}
+            <img src="{{ lotr.jpg }}" />
+        {% endif %}
+        <p>{{ posteo.cuerpo }}</p>
+        <p>{{ posteo.fecha }}</p>
+    </div>
+</div>
+
+
+
+{% endblock %}
