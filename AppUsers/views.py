@@ -83,11 +83,11 @@ def DMs (request, username, *args, **kwargs):
     if not request.user.is_authenticated:
         return redirect('AppUsers:login')
 
-    else:
-     mi_username=request.user.username
+    
+    mi_username=request.user.username
 
-     canal, created=Canal.objects.obtener_canal_dm(mi_username,username)
-     if created:
+    canal, created=Canal.objects.obtener_canal_dm(mi_username,username)
+    if created:
         print("Si se creo mamon")
 
     Usuarios_Canal=canal.canaldeusuario_set.all().values("usuario__username")
