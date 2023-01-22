@@ -1,0 +1,18 @@
+{% extends "AppBlog/templates/padre.html" %}
+
+{% load static %}
+
+{% block centro_de_pagina %}
+
+<form class="site-form" method="post" enctype="multipart/form-data">
+
+    {% csrf_token %}
+
+    {{ form }}
+
+    <input type="submit" value="Editar">
+
+
+</form>
+
+{% endblock %}

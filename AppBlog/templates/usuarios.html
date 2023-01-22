@@ -1,0 +1,44 @@
+{% extends "AppBlog/templates/padre.html" %}
+
+{% load static %}
+
+{% block centro_de_pagina %}
+
+<div>
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Usuarios
+        </div>
+        <div class="card-body">
+            <table id="datatablesSimple">
+                <thead>
+                    <tr>
+                        <th>Usuario</th>
+                        <th>Alias</th>
+                        <th>Fecha</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Usuario</th>
+                        <th>Alias</th>
+                        <th>Fecha</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+
+                    {% for perfil in perfiles %}
+                        <tr>
+                            <td><a href="{% url 'AppBlog:visitar_perfil' perfil.username %}">{{perfil.username}}</a></td>
+                            <td>{{perfil.alias}} </td>
+                            <td>{{perfil.fecha_registro}}</td>
+                        </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

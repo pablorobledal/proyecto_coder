@@ -1,0 +1,81 @@
+{% extends "AppBlog/templates/padre.html" %}
+
+{% load static %}
+
+{% block centro_de_pagina %}
+
+<div class="columna_perfil1">
+    <div class="col-12 col-lg-3">
+            <div class="card card-left1 mb-1" >
+                <img src="media/avatares/negro.jpg" alt="" class="card-img-top img-fluid">
+                <div class="card-body text-center ">
+                    <img alt="img" width="120px" height="120px" class="rounded-circle mt-n5" src="{{ perfil.avatar.url }}">
+                    <h5 class="card-title"> {{ user.username }} </h5>
+                    <h5 class="card-title"> Alias: {{ perfil.alias }} </h5>
+                    <h5 class="card-title"> {{ perfil.email }} </h5>
+                    <a href="{{ perfil.paginaweb }}"class="card-text text-justify mb-2"> Mi Página Web </a>
+                    <ul class="list-unstyled nav justify-content-center">
+                    <a href="{% url 'AppUsers:editar_usuario' perfil.pk %}" class="text-dark text-decoration-none"> <li class="nav-item">Editar perfil <br> </li></a>
+                    <a href="{% url 'AppUsers:editar_contraseña' user.pk %}" class="text-dark text-decoration-none"> <li class="nav-item">Editar contraseña <br> </li></a> 
+                    <a href="{% url 'AppUsers:borrar_usuario' user.pk %}" class="text-dark text-decoration-none"> <li class="nav-item">Borrar perfil <br> </li></a> 
+                    </ul>
+
+                </div>
+
+            </div>
+
+
+            <div class="card shadow-sm card-left2 mb-1">
+                <div class="card-body">
+                        <h5 class="mb-3 card-title">Biografía </h5>
+                        <p class="card-text text-justify mb-2">{{ perfil.bio }}</p>
+                </div>
+            </div>
+        </div>
+</div>
+
+<div class="columna_perfil2">
+
+    <div class="card mb-2">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Posts
+        </div>
+        <div class="card-body">
+            <table id="datatablesSimple">
+                <thead>
+                    <tr>
+                        <th>Titulo</th>
+                        <th>Universo</th>
+                        <th>Fecha</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Titulo</th>
+                        <th>Universo</th>
+                        <th>Fecha</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    {% for posteo in posteos %}
+                        <tr>
+                            <th><a href="{% url 'AppBlog:visitar_posteo' posteo.titulo %}">{{posteo.titulo}} </a></th>
+                            <th><a href="{% url 'inicio'  %}">{{posteo.universo}} </a></th>
+                            <th>{{posteo.fecha}}</th>
+                            <th><a class="btn btn-primary" href="{% url 'AppBlog:editar_posteo' posteo.pk %}">Editar </a></th>
+                            <th><a class="btn btn-primary" href="{% url 'AppBlog:borrar_posteo' posteo.pk %}">Borrar </a></th>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        
+        </div>
+    </div>
+</div>
+{% endblock %}
+

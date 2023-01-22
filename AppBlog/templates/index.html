@@ -1,0 +1,89 @@
+{% extends "padre.html" %}
+
+{% load static %}
+
+{% block centro_de_pagina %}
+<main>
+    <div class="container-fluid px-4">
+
+        <form>
+            <h1 class="mt-4">The Prancing Pony</h1>
+            <ol class="breadcrumb mb-5">
+                <li class="breadcrumb-item active">Bienvenidos a la taberna!</li>
+            </ol>
+        </form>
+
+    </div>
+    
+
+    <div> 
+        <form>
+            <div class="columna">
+                <a href="lotr">
+                    <img src="https://i.pinimg.com/originals/dd/b1/a4/ddb1a4a72999261e754b325cb1a387d4.jpg">
+                </a>
+            </div>
+            <div class="columna">
+                <a href="mistborn">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/Ettmetal.webp">
+                </a>
+            </div>
+            <div class="columna">
+                <a href="narnia">
+                    <img src="https://narniafans.com/wp-content/uploads/2021/07/5_50.png">
+                </a>
+            </div>
+            <div class="columna">
+                <a href="got">
+                    <img src="https://seeklogo.com/images/G/game-of-thrones-logo-20E37C96FE-seeklogo.com.png">
+                </a>
+            </div>
+        </form>
+    </div>
+
+    <div>
+        <form>
+            <div class="card mb-6">
+                <div class="card-header">
+                        <i class="fas fa-table me-1"></i>
+                        Posts
+                </div>
+                <div class="card-main">
+                    <table id="datatablesSimple">
+                        <thead>
+                            <tr>
+                                <th>Autor</th>
+                                <th>Titulo</th>
+                                <th>Universo</th>
+                                <th>Fecha</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Autor</th>
+                                <th>Titulo</th>
+                                <th>Universo</th>
+                                <th>Fecha</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+
+                                {% for posteo in posteos %}
+                                    <tr>
+                                        <td><a href="{% url 'AppBlog:visitar_perfil' posteo.username %}">{{posteo.autor}} </a></td>  
+                                        <td><a href="{% url 'AppBlog:visitar_posteo' posteo.titulo %}">{{posteo.titulo}} </a></td>
+                                        <td><a href="{% url 'AppBlog:visitar_universo' posteo.universo %}">{{posteo.universo}} </a></td>
+                                        <td>{{posteo.fecha}}</td>
+                                    </tr>
+                                {% endfor %}
+
+
+                        </tbody>
+                    </table>
+                    
+                </div>
+            </div>
+        </form>
+    </div>
+</main>
+{% endblock %}

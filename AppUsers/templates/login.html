@@ -1,0 +1,22 @@
+{% extends "AppBlog/templates/padre.html" %}
+
+{% load static %}
+
+{% block centro_de_pagina %}
+
+<form action="{% url 'AppUsers:iniciar_sesion' %}" method="POST"> {% csrf_token %}
+
+    <table>
+
+        {{ form.as_table }}
+    
+    </table>
+
+    <input type="submit" value="INGRESAR">
+
+
+
+
+</form>
+
+{% endblock %}

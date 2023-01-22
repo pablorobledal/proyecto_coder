@@ -1,0 +1,14 @@
+{% extends "AppBlog/templates/padre.html" %}
+
+{% load static %}
+
+{% block centro_de_pagina %}
+
+<h1>REGISTRATE</h1>
+<form class="site-form" action="registro" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Signup">
+</form>
+
+{% endblock %}

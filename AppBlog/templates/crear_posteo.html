@@ -1,0 +1,18 @@
+{% extends "padre.html" %}
+
+{% load static %}
+
+{% block centro_de_pagina %}
+<section>
+    <div class="crear_posteo">
+        <h2>CREA UN NUEVO POST</h2>
+        <form class="site-form" action="{% url 'AppBlog:crear_posteo' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Create">
+        </form>
+    </div>
+</section>
+
+
+{% endblock %}

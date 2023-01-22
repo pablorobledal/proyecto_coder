@@ -1,0 +1,58 @@
+{% extends "padre.html" %}
+
+{% load static %}
+
+{% block centro_de_pagina %}
+
+{% if lista_busqueda %}
+    <div class="card mb-4">
+    <div class="card-header">
+        <i class="fas fa-table me-1"></i>
+        Resultados para tu busqueda de: {{ busqueda_completa }}
+    </div>
+    <div class="card-body">
+        <table id="datatablesSimple">
+            <thead>
+                <tr>
+                    <th>Autor</th>
+                    <th>Titulo</th>
+                    <th>Universo</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>Autor</th>
+                    <th>Titulo</th>
+                    <th>Universo</th>
+                    <th>Fecha</th>
+                </tr>
+            </tfoot>
+            <tbody>
+                {% for posteo in lista_busqueda %}
+                    <tr>
+                        <td><a href="{% url 'AppBlog:visitar_perfil' posteo.autor %}">{{posteo.autor}} </a></td>  
+                        <th><a href="{% url 'AppBlog:visitar_posteo' posteo.titulo %}">{{posteo.titulo}} </a></th>
+                        <th><a href="{% url 'inicio'  %}">{{posteo.universo}} </a></th>
+                        <th>{{posteo.fecha}}</th>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+       
+    </div>
+    </div>
+
+{% else %}
+    <div class="container">
+	<div class="row">
+		<div class="card m-auto">
+			<div class="card-body mt-2 mb-2">
+				<h2 class="card-title">Sin resultados :(</h2>
+				<p class="card-text">No hay resultados para tu busqueda: {{busqueda_completa}}</p>
+			</div>
+		</div>
+	</div>
+    </div>
+{% endif %}
+{% endblock %}
