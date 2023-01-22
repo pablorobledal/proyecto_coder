@@ -88,8 +88,23 @@ class CanalManager(models.Manager):
 
             return qs.order_by("tiempo").first(), False
 
-        canal_obj = Canal.objects.create()
         Usuario=apps.get_model("auth", model_name='User')
+        usuario_1, usuario_2 =None, None
+        try:
+            usuario_1 = Usuario.objects.get(username=username_1)
+        except Usuario.DoesNotExist:
+            return None, False
+        try:
+            usuario_2 = Usuario.objects.get(username=username_2)
+        except Usuario.DoesNotExist:
+            return None, False 
+
+        if usuario_1 == None or usuario_2 == None:
+            return None, False
+
+            
+        canal_obj = Canal.objects.create()
+        
         Canal_usuario_1=CanaldeUsuario(usuario=Usuario.objects.get(username=username_1), canal=canal_obj)
         Canal_usuario_2=CanaldeUsuario(usuario=Usuario.objects.get(username=username_2), canal=canal_obj)
         CanaldeUsuario.objects.bulk_create([Canal_usuario_1,Canal_usuario_2])
