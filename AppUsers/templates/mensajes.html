@@ -1,0 +1,98 @@
+{% extends "AppBlog/templates/padre.html" %}
+
+{% load static %}
+
+{% block centro_de_pagina %}
+
+
+<div id="contenedor_mensaje" class="mensaje">
+        <h1>Mensajes del canal</h1>
+        <h2>{{ object.id }}</h2>
+        {% for mensaje in object.canaldemensaje_set.all %}
+            {% if request.user == mensaje.usuario %}
+                <p> 
+                  <strong> 
+                    {{ mensaje.texto }}
+                  </strong>
+                  <span>
+                    Lo enviaste vos
+                  </span>
+                </p>
+            {% else %}
+                <p> 
+                    {{ mensaje.texto }}
+                  <span>
+                    {{ mensaje.usuario }}
+                  </span>
+                </p>
+                    
+            {% endif %}
+        {% endfor %}
+</div>
+
+
+<h1>Usuarios del Canal</h1>
+        {% for usuarios in object.canaldeusuario_set.all %}
+             
+             <p>
+                {{ usuarios.usuario }}
+             </p>
+
+        {% endfor %}
+
+    <form id="form_submit" action="{{ request.path }}" method="POST">
+        {% csrf_token %}
+        {{ form.as_p}}
+
+        <button type="submit">
+          Enviar mensaje
+        </button>
+    </form>
+
+<script>
+  const Msgform= document.getElementById("form_submit")
+  const Contenedor_msg=document.getElementById("contenedor_mensaje")
+
+  Msgform.addEventListener("submit",(event)=>{
+        event.preventDefault()
+
+        const targetData=event.target
+        const formData= new FormData(targetData) 
+        
+        const xhr = new XMLHttpRequest() // ajax fetch
+      
+        const endpoint = Msgform.getAttribute("action")
+        const method = Msgform.getAttribute("method")
+        xhr.open(method, endpoint)
+
+        xhr.responseType = "json"
+
+        xhr.setRequestHeader("HTTP_X_REQUESTED_WITH", "XMLHttpRequest")
+        xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest")
+
+        xhr.onload = () => {
+
+         console.log(xhr.status, xhr.response)
+
+			    if(xhr.status === 201){
+				    const respuestaData = xhr.response
+				    let actualMensajeHtml = Contenedor_msg.innerHTML
+				    actualMensajeHtml += `<div class=''><b>${respuestaData.username}</b><p>${respuestaData.mensaje}</p></div>` 
+				    Contenedor_msg.innerHTML = actualMensajeHtml
+				    Msgform.reset()
+			    }else if(xhr.status === 400){
+				    console.log(hxr.response)
+			    }else{
+				    alert("Un error ocurrio, por favor trata luego")
+			    }
+
+		  }
+
+		  xhr.send(formData)
+      
+      
+    })
+
+</script>
+ 
+{% endblock %}

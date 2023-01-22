@@ -3,6 +3,7 @@ from django.conf import settings
 from django.utils import timezone
 from django.contrib.auth.models import User
 from PIL import Image
+from django.apps import apps
 import uuid
 from django.db.models import Count
 
@@ -55,17 +56,63 @@ class CanaldeUsuario(ModeloBase):
 
 class CanalQuerySet(models.QuerySet):
     def solo_uno(self):
-        return self.annotate(numero_usuarios=Count("usuarios").filter(numero_usuarios=1))
+        return self.annotate(numero_usuarios=Count("usuarios")).filter(numero_usuarios=1)
 
-    def solo_dos_u(self):
-        return self.annotate(numero_usuarios=Count("usuarios").filter(numero_usuarios=2))
+    def solo_dos(self):
+        return self.annotate(numero_usuarios=Count("usuarios")).filter(numero_usuarios=2)
+    
+    def filtrado_por_usuario(self, username):
+        return self.filter(canaldeusuario__usuario__username=username)
 
+ 
 
 class CanalManager(models.Manager):
     def get_queryset(self, *args, **kwargs):
         return CanalQuerySet(self.model, using=self._db)
+    
+    def filtrar_por_privado(self, username_1, username_2):
+        return self.get_queryset().solo_dos().filtrado_por_usuario(username_1).filtrado_por_usuario(username_2)
+
+    def obtener_canal_usuario_actual(self, user):
+        qs=self.get_queryset().solo_uno().filtrado_por_usuario(user.username)
+        if qs.exists():
+            return qs.order_by("tiempo").first, False
+        
+        canal_obj = Canal.objects.create()
+        CanaldeUsuario.objects.create(usuario=user, canal=canal_obj)
+        return canal_obj, True
+
+    def obtener_canal_dm(self, username_1,username_2):
+        qs=self.filtrar_por_privado(username_1,username_2)
+        if qs.exists():
+
+            return qs.order_by("tiempo").first(), False
+
+        User=apps.get_model("auth",model_name='User')
+        usuario_1, usuario_2 = None, None
+
+        try:
+            usuario_1=User.objects.get(username=username_1)
+        
+        except User.DoesNotExist:
+            return None, False
 
 
+        try:
+            usuario_2=User.objects.get(username=username_2)
+        
+        except User.DoesNotExist:
+            return None, False
+
+        if usuario_1 == None or usuario_2 == None:
+            return None, False
+
+        obj_canal=Canal.objects.create()
+        canal_usuario_1=CanaldeUsuario(usuario=username_1, canal=obj_canal)
+        canal_usuario_2=CanaldeUsuario(usuario=username_2, canal=obj_canal)
+        CanaldeUsuario.objects.bulk_create([canal_usuario_1, canal_usuario_2])
+        return obj_canal, True
+        
 class Canal(ModeloBase):
     usuarios=models.ManyToManyField(User, blank=True, through=CanaldeUsuario)
     objects=CanalManager()

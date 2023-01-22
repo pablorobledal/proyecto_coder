@@ -114,11 +114,14 @@
                                     <a class="nav-link" href="http://127.0.0.1:8000/AppBlog/resultado_busqueda?n=got">Posts</a>
                                 </nav>
                             </div>
+                            {% if user.is_authenticated %}
                             <div class="sb-sidenav-menu-heading">Buzon</div>
-                            <a class="nav-link" href="{% url 'AppBlog:mensajes' %}">
+                            <a class="nav-link" href="{% url 'AppUsers:buzon' %}">
                                 <div class="sb-nav-link-icon"><i class="far fa-envelope"></i></div>
                                 Tus mensajes
                             </a>
+                            {% else %}
+                            {% endif %}
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">

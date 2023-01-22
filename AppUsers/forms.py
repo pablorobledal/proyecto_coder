@@ -26,3 +26,6 @@ class UserCreationForm(UserCreationForm):
             user.save()
         return user
 
+class FormDeMensajes(forms.Form):
+    mensaje=forms.CharField(widget=forms.Textarea(attrs={'class':'formulario_ms','placeholder':'Escribí tu mensaje'}))
+
