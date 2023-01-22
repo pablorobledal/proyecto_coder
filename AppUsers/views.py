@@ -3,6 +3,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from .forms import UserCreationForm
 from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
+from django.contrib.auth.views import PasswordChangeView, PasswordResetDoneView
 from django.urls import reverse
 
 from django.views.generic import ListView, DetailView
@@ -50,7 +51,7 @@ def logear(request):
 class editar_perfil (UpdateView):
     model = Perfil
     template_name='editar_perfil.html'
-    fields=['alias','email','bio','avatar']
+    fields=['alias','email','bio','avatar','paginaweb']
     succes_message='Perfil editado correctamente'
     success_url=reverse_lazy('AppBlog:redireccionar')
 
@@ -72,4 +73,8 @@ def miperfil (request, username):
     posteos=Posteo.objects.filter(username=username)
     return render(request, 'miperfil.html', {"perfil":perfil, "posteos":posteos})
     
+
+class editar_contraseña(PasswordChangeView):
+    template_name='editar_contraseña.html'
+    success_url=reverse_lazy('AppBlog:inicio')
 

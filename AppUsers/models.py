@@ -19,7 +19,7 @@ class Perfil(models.Model):
     fecha_registro=models.DateTimeField(auto_now_add=True,auto_now=False, null=False,blank=True)
     bio=models.TextField(null=False,blank=True)
     avatar=models.ImageField(upload_to='avatares',default='avatares/default.jpg', null=False, blank=True)
-    
+    paginaweb=models.URLField(max_length=200, null=False,blank=True)
 
     def __str__(self):
         return f'Perfil de {self.user.username}'

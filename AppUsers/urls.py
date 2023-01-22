@@ -12,6 +12,7 @@ urlpatterns = [
     path('editar_perfil/<pk>', editar_perfil.as_view(), name='editar_usuario'),
     path('borrar_usuario/<pk>', borrar_perfil.as_view(), name='borrar_usuario'),
     path('perfil/<username>', miperfil, name='mi_perfil'),
+    path('editar_contraseña/<pk>', editar_contraseña.as_view(), name='editar_contraseña')
 
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

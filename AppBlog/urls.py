@@ -10,7 +10,7 @@ urlpatterns = [
     path('reglas/', reglas, name='reglas'),
     path('lotr', lotr, name='lotr'),
     path('mistborn/', mistborn, name='mistborn'),
-    path('narnia/', narnia, name='narnia'),
+    path('Narnia/', narnia, name='narnia'),
     path('got', got, name='got'),
     path('mensajes', mensajes, name='mensajes'),
     path('posts/', posts, name='posts'),
@@ -20,5 +20,7 @@ urlpatterns = [
     path('visitar_perfil/<username>',visitar_perfil, name='visitar_perfil'),
     path('visitar_posteo/<titulo>',visitar_posteo, name='visitar_posteo'),
     path('redireccionar',redireccionar, name='redireccionar'),
-    path('resultado_busqueda', buscar, name='resultado_busqueda')
+    path('resultado_busqueda', buscar, name='resultado_busqueda'),
+    path('<universo>',visitar_universo, name='visitar_universo'),
+
 ]

@@ -32,7 +32,7 @@
                 <div class="container">
                     
                     {% if user.is_authenticated %}
-                    <p>Bienvenido: {{ user.username }}</p> 
+                    <h4>Bienvenido: {{ user.username }}</h4> 
                     <div align="right"               
                         {% csrf_token %}
                         <a class="btn btn-primary" href="{% url 'AppUsers:mi_perfil' user.username %}">MI PERFIL</a>
@@ -125,16 +125,19 @@
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as:</div>
-                        {{ user.username }}
+                        {% if user.is_authenticated %}
+                            <div class="small">Logged in as:</div>
+                            {{ user.username }}
+                        {% endif %}
                     </div>
                 </nav>
             </div>
             <div id="layoutSidenav_content">
-                
-                {% block centro_de_pagina %}
+                <main>
+                    {% block centro_de_pagina %}
 
-                {% endblock %}
+                    {% endblock %}
+                </main>
 
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">

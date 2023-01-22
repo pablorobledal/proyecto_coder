@@ -124,3 +124,5 @@ def buscar(request):
     else:
         return redirect('AppBlog:inicio')
 
+def visitar_universo(request, universo):
+    return render(request, f"{universo}.html", {'universo':universo})
