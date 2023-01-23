@@ -11,6 +11,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.views.generic import ListView, DetailView, View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormMixin
+from django.contrib.auth.decorators import login_required
 
 from django.urls import reverse_lazy
 from django.contrib import messages
@@ -31,6 +32,7 @@ def registro(request):
         form = UserCreationForm()
     return render(request, 'registro.html', { 'form': form })
 
+@login_required(login_url='AppUsers:iniciar_sesion')
 def cerrar_sesion(request):
     if request.method == 'POST':
         logout(request)
@@ -51,19 +53,21 @@ def logear(request):
     return render(request, 'login.html', { 'form': form })
 
 
-class editar_perfil (UpdateView):
+class editar_perfil (LoginRequiredMixin, UpdateView):
     model = Perfil
     template_name='editar_perfil.html'
     fields=['alias','email','bio','avatar','paginaweb']
     succes_message='Perfil editado correctamente'
     success_url=reverse_lazy('AppBlog:redireccionar')
+    login_url=reverse_lazy('AppUsers:iniciar_sesion')
 
 
 
-class borrar_perfil(SuccessMessageMixin,DeleteView):
+class borrar_perfil(LoginRequiredMixin,SuccessMessageMixin,DeleteView):
     model = User
     fields="__all__"
     template_name='perfil_confirm_delete.html'
+    login_url=reverse_lazy('AppUsers:iniciar_sesion')
     
 
     def get_success_url(self):
@@ -71,15 +75,18 @@ class borrar_perfil(SuccessMessageMixin,DeleteView):
         messages.success(self.request, (succeess_message))
         return reverse_lazy('AppBlog:inicio') 
 
+
+@login_required(login_url='AppUsers:iniciar_sesion')
 def miperfil (request, username):
     perfil=Perfil.objects.get(username=username)
     posteos=Posteo.objects.filter(username=username)
     return render(request, 'miperfil.html', {"perfil":perfil, "posteos":posteos})
     
 
-class editar_contraseña(PasswordChangeView):
+class editar_contraseña(LoginRequiredMixin,PasswordChangeView):
     template_name='editar_contraseña.html'
     success_url=reverse_lazy('AppBlog:inicio')
+    login_url=reverse_lazy('AppUsers:iniciar_sesion')
 
 
 
@@ -103,7 +110,10 @@ def DMs (request, username, *args, **kwargs):
     return reverse_lazy('AppUsers:DetalleDMs', kwargs={"username":username})
     #return render(request, 'mensajes.html', {'canal':canal})
 
-class Buzon(View):
+
+
+class Buzon(LoginRequiredMixin,View):
+    login_url=reverse_lazy('AppUsers:iniciar_sesion')
     def get(self, request):
 
         buzon=Canal.objects.filter(canaldeusuario__usuario__in=[request.user.id])
@@ -145,7 +155,10 @@ class CanalFormMixin(FormMixin):
 
             return super().form_invalid(form)
 
-class DetalleCanal(DetailView, LoginRequiredMixin, CanalFormMixin):
+
+
+class DetalleCanal(LoginRequiredMixin, DetailView, CanalFormMixin):
+    login_url=reverse_lazy('AppUsers:iniciar_sesion')
     template_name="mensajes.html"
     queryset=Canal.objects.all()
 
@@ -164,9 +177,10 @@ class DetalleCanal(DetailView, LoginRequiredMixin, CanalFormMixin):
 
 
 
-class DetalleDMs(DetailView, LoginRequiredMixin,CanalFormMixin):
-      template_name="mensajes.html"
-      def get_object(self, *args, **kwargs):
+class DetalleDMs(LoginRequiredMixin, DetailView, CanalFormMixin):
+    login_url=reverse_lazy('AppUsers:iniciar_sesion')
+    template_name="mensajes.html"
+    def get_object(self, *args, **kwargs):
 
         username=self.kwargs.get("username")
         
@@ -185,3 +199,7 @@ class DetalleDMs(DetailView, LoginRequiredMixin,CanalFormMixin):
         return canal
 
 
+def obtener_usuarios(request):
+    perfiles=""
+    perfiles=Perfil.objects.all()    
+    return render(request, 'AppBlog/templates/usuarios.html', {'perfiles':perfiles})

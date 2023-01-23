@@ -10,9 +10,8 @@ urlpatterns = [
     path('reglas/', reglas, name='reglas'),
     path('lotr', lotr, name='lotr'),
     path('mistborn/', mistborn, name='mistborn'),
-    path('Narnia/', narnia, name='narnia'),
+    path('narnia/', narnia, name='narnia'),
     path('got', got, name='got'),
-    path('posts/', posts, name='posts'),
     path('crear_posteo', crear_posteo, name='crear_posteo'),
     path('editar_posteo/<pk>', editar_posteo.as_view(), name='editar_posteo'),
     path('borrar_posteo/<pk>', borrar_posteo.as_view(), name='borrar_posteo'),
@@ -21,6 +20,6 @@ urlpatterns = [
     path('redireccionar',redireccionar, name='redireccionar'),
     path('resultado_busqueda', buscar, name='resultado_busqueda'),
     path('<universo>',visitar_universo, name='visitar_universo'),
-    path('usuarios',obtener_usuarios,name="obtenerusuarios"),
+
 
 ]

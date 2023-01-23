@@ -14,6 +14,9 @@ from django.urls import reverse_lazy
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic.detail import SingleObjectMixin
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 # Create your views here.
 
 
@@ -51,6 +54,7 @@ def got(request):
 def posts(request):
     return render (request,'AppBlog/templates/listado-post.html')
 
+@login_required(login_url='AppUsers:iniciar_sesion')
 def crear_posteo(request):
     if request.method == 'POST':
         form = forms.CrearPosteo(request.POST, request.FILES)
@@ -72,17 +76,19 @@ def redireccionar(request):
    return render(request,'AppUsers/templates/miperfil.html', {'posteos':posteos, 'perfil':perfil})
 
 
-class editar_posteo (UpdateView):
+class editar_posteo (LoginRequiredMixin, UpdateView):
     model = Posteo
     template_name='editar_perfil.html'
     fields=['titulo','universo','cuerpo','imagen']
     succes_message='Posteo editado correctamente'
     success_url=reverse_lazy('AppBlog:redireccionar')
+    login_url=reverse_lazy('AppUsers:iniciar_sesion')
 
-class borrar_posteo(SuccessMessageMixin,DeleteView):
+class borrar_posteo(LoginRequiredMixin, SuccessMessageMixin,DeleteView):
     model = Posteo
     fields="__all__"
     template_name='posteo_confirm_delete.html'
+    login_url=reverse_lazy('AppUsers:iniciar_sesion')
     
     
     def get_success_url(self):
@@ -123,10 +129,7 @@ def buscar(request):
     else:
         return redirect('AppBlog:inicio')
 
-def obtener_usuarios(request):
-    perfiles=""
-    perfiles=Perfil.objects.all()
-    return render(request, 'AppBlog/templates/usuarios.html', {'perfiles':perfiles})
+
 
 def visitar_universo(request, universo):
     return render(request, f"{universo}.html", {'universo':universo})

@@ -18,6 +18,7 @@ urlpatterns = [
     path('detalledms/<username>', DetalleDMs.as_view(), name="detalledms"),
     re_path(UUID_CANAL_REGEX,DetalleCanal.as_view(), name="detallecanal"),
     path('buzon', Buzon.as_view(),name="buzon"),
+    path('usuarios',obtener_usuarios,name="obtenerusuarios"),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
